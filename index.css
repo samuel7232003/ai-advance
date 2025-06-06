@@ -1,0 +1,571 @@
+:root {
+  --primary-bg-start: #f8f9fa; /* Off-white */
+  --primary-bg-end: #ffffff; /* Pure white */
+  --card-bg: #ffffff;
+  --text-primary: #212529; /* Dark gray for text */
+  --text-secondary: #495057; /* Slightly lighter dark gray */
+  --text-muted: #6c757d;
+  --accent-color: #007bff; /* Primary blue */
+  --accent-color-darker: #0056b3;
+  --accent-glow-color: rgba(0, 123, 255, 0.2);
+  --border-color: #dee2e6; /* Light gray for borders */
+  --input-border-color: #ced4da;
+  --success-color: #198754; /* Bootstrap green */
+  --success-bg: rgba(25, 135, 84, 0.1);
+  --error-color: #dc3545; /* Bootstrap red */
+  --error-bg: rgba(220, 53, 69, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --button-text-color: #ffffff;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin: 0;
+  padding: 0; /* Changed padding to 0, header will manage its own */
+  background: linear-gradient(
+    135deg,
+    var(--primary-bg-start) 0%,
+    var(--primary-bg-end) 100%
+  );
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; /* Allow header and content to stack */
+  overflow-x: hidden;
+}
+
+/* --- Login Page Styles --- */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1; /* Takes up remaining space */
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-card {
+  background-color: var(--card-bg);
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px var(--shadow-color);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-card h2 {
+  color: var(--accent-color);
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.login-subtitle {
+  color: var(--text-secondary);
+  margin-bottom: 25px;
+  font-size: 0.95em;
+}
+
+.login-card .form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.login-card label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.9em;
+}
+
+.login-card input[type="text"],
+.login-card input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--input-border-color);
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 1em;
+  color: var(--text-primary);
+  background-color: var(--primary-bg-end);
+}
+.login-card input[type="text"]:focus,
+.login-card input[type="password"]:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 0.2rem var(--accent-glow-color);
+}
+.login-card input:disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+.login-button {
+  background: var(--accent-color);
+  color: var(--button-text-color);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.login-button:hover:not(:disabled) {
+  background: var(--accent-color-darker);
+  transform: translateY(-1px);
+}
+.login-button:disabled {
+  background-color: #adb5bd;
+  cursor: not-allowed;
+}
+
+.login-error-message {
+  margin-bottom: 15px; /* Space between error and button */
+  font-size: 0.85em;
+}
+
+/* --- App Header Styles --- */
+.app-header {
+  background-color: var(--card-bg);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px var(--shadow-color);
+  border-bottom: 1px solid var(--border-color);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.app-title {
+  font-size: 1.8em;
+  font-weight: 600;
+  color: var(--accent-color);
+  margin: 0;
+}
+
+.logout-button {
+  background-color: transparent;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: var(--accent-color);
+  color: var(--button-text-color);
+}
+
+/* --- Main App Container & Content (Light Theme Adaptation) --- */
+.container {
+  max-width: 650px;
+  width: 90%;
+  margin: 30px auto; /* Added margin for spacing from header */
+  padding: 0; /* Container itself doesn't need padding if cards have it */
+  flex-grow: 1;
+}
+
+header:not(.app-header) {
+  /* Target only the old header inside main container if it exists */
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+header:not(.app-header) h1 {
+  /* Style for h1 within the card, not the app-title */
+  font-size: 2em;
+  font-weight: 600;
+  color: var(--text-primary); /* Changed from accent color */
+  margin: 0;
+}
+
+h2 {
+  /* Default h2, e.g., "Upload Your Video Masterpiece" */
+  font-size: 1.5em;
+  color: var(--text-primary);
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+h3 {
+  /* E.g., "Your Processed Video" */
+  font-size: 1.25em;
+  color: var(--accent-color);
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.card {
+  background-color: var(--card-bg);
+  padding: 25px 30px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.file-input-area-wrapper {
+  margin-bottom: 25px;
+}
+
+.file-input-label {
+  display: block;
+  cursor: pointer;
+}
+
+.file-input-area {
+  border: 2px dashed var(--accent-color);
+  border-radius: 8px;
+  padding: 25px 20px;
+  text-align: center;
+  background-color: #f8f9fa; /* Lighter than card, for drop zone */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color);
+}
+
+.file-input-area:hover {
+  background-color: #e9ecef;
+  border-color: var(--accent-color-darker);
+}
+
+.file-input-area svg {
+  color: var(
+    --accent-color
+  ); /* Will inherit from parent if not set, but explicit is fine */
+  margin-bottom: 12px;
+  width: 40px;
+  height: 40px;
+  opacity: 0.8;
+}
+
+.file-input-area span {
+  font-size: 0.9em;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.file-input-area:hover span {
+  color: var(--text-primary);
+}
+
+.file-input-hidden {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.upload-button {
+  background: var(--accent-color);
+  color: var(--button-text-color);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 1.05em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out, transform 0.1s ease,
+    box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
+  width: 100%;
+}
+
+.upload-button:hover:not(:disabled) {
+  background: var(--accent-color-darker);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px var(--accent-glow-color);
+}
+
+.upload-button:disabled {
+  background: #adb5bd; /* Muted gray for disabled */
+  color: #f8f9fa;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.upload-button .spinner {
+  border-top-color: var(
+    --button-text-color
+  ); /* Spinner for light button text */
+}
+.upload-button .spinner + span {
+  margin-left: 8px;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 2px solid var(--text-primary); /* Default spinner for dark text areas */
+  border-right: 2px solid transparent;
+  animation: spin 0.7s linear infinite;
+  margin-right: 8px;
+}
+.upload-button .spinner {
+  /* Spinner inside upload button specifically */
+  border-top: 2px solid var(--button-text-color);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.status-message {
+  margin-top: 20px;
+  padding: 12px 18px;
+  border-radius: 6px;
+  font-size: 0.95em;
+  border-left-width: 4px;
+  border-left-style: solid;
+  display: flex;
+  align-items: center;
+}
+.status-icon {
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.status-message.success {
+  border-left-color: var(--success-color);
+  color: var(--success-color);
+  background-color: var(--success-bg);
+}
+.status-message.success .status-icon {
+  color: var(--success-color);
+}
+
+.status-message.error {
+  border-left-color: var(--error-color);
+  color: var(--error-color);
+  background-color: var(--error-bg);
+  font-weight: 500;
+}
+.status-message.error .status-icon {
+  color: var(--error-color);
+}
+
+.video-player-section {
+  margin-top: 25px;
+}
+
+.video-player-section video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: #000; /* Video player itself often has black bg */
+  box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+  padding: 20px 0;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.85em;
+  color: var(--text-muted);
+  width: 100%; /* Make footer span full width */
+  box-sizing: border-box;
+}
+
+/* Animations */
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anim-fade-in {
+  animation: fadeInSlideUp 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+.card.anim-fade-in,
+.status-message.anim-fade-in,
+.video-player-section.anim-fade-in {
+  opacity: 0; /* Initial state for animation */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 15px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .app-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  .logout-button {
+    align-self: flex-start; /* Align to left on mobile */
+  }
+
+  .container {
+    width: 95%;
+    margin: 20px auto;
+  }
+  .card {
+    padding: 20px;
+  }
+  .login-card {
+    padding: 25px;
+  }
+  .login-card h2 {
+    font-size: 1.8em;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-title {
+    font-size: 1.3em;
+  }
+  .card h2 {
+    /* Target h2 within cards specifically */
+    font-size: 1.3em;
+  }
+  .login-card h2 {
+    font-size: 1.6em;
+  }
+  .file-input-area span {
+    font-size: 0.85em;
+  }
+  .upload-button {
+    font-size: 0.95em;
+    padding: 10px 15px;
+  }
+  .status-message {
+    font-size: 0.85em;
+    padding: 10px 12px;
+  }
+}
+
+.upload-area {
+  padding: 20px;
+  text-align: center;
+}
+
+.upload-zone {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 40px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.upload-zone:hover {
+  border-color: #666;
+  background-color: #f8f8f8;
+}
+
+.upload-zone.uploading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.selected-file {
+  margin: 20px 0;
+  padding: 15px;
+  background: #f8f8f8;
+  border-radius: 8px;
+}
+
+.upload-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.upload-button:hover {
+  background-color: #45a049;
+}
+
+.upload-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.video-player-section {
+  margin-top: 30px;
+}
+
+.video-player-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  margin-top: 20px;
+}
+
+.video-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.status-message {
+  margin: 15px 0;
+  padding: 10px 15px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-message.info {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-message.error {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
